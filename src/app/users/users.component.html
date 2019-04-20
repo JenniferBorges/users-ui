@@ -1,32 +1,56 @@
 <div class="box">
     <div class="box-header">
       <h3 class="box-title">Lista de Usuários</h3>
-    <a class="btn btn-sm btn-primary pull-right" [routerLink]="['/users/form']">Criar Novo</a>
+      <a class="btn btn-sm btn-primary pull-right" [routerLink]="['/users/form']">Criar Novo</a>
     </div>
-    <div class="box-body table-responsive no-padding">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Nascimento</th>
-            <th>CPF</th>
-            <th>UF</th>
-            <th>Peso</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of page?.content">
-            <td>{{user.name}}</td>
-            <td>{{user.birth}}</td>
-            <td>{{user.cpf}}</td>
-            <td>{{user.uf}}</td>
-            <td>{{user.weight}}</td>
-            <td>
-                <button class="btn btn-xs btn-danger" (click)= "delete(user.id)">Excluir</button>
-                <a class="btn btn-xs btn-primary" [routerLink]="['/users', user.id, 'edit']">Editar</a>      
-            </td>
-          </tr>
-      </tbody></table>
+    <div class="box-body ">
+      <div class="form-inline">
+          <select class="form-control" style="width: 300px" #sort (change)="change($event.target.value, dir.value)">
+            <option value="id">Ordenação</option>
+            <option value="name">Nome</option>
+            <option value="cpf">CPF</option>
+            <option value="uf">UF</option>
+            <option value="weight">Peso</option>
+          </select>
+          <select class="form-control" #dir (change)="change(sort.value, $event.target.value)">
+            <option value="asc">Crescente</option>
+            <option value="desc">Decrescente</option>
+          </select>
+      </div>
+      <br>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Nascimento</th>
+              <th>CPF</th>
+              <th>UF</th>
+              <th>Peso</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of page?.content">
+              <td>{{user.name}}</td>
+              <td>{{user.birth}}</td>
+              <td>{{user.cpf}}</td>
+              <td>{{user.uf}}</td>
+              <td>{{user.weight}}</td>
+              <td>
+                  <button class="btn btn-xs btn-danger" (click)= "delete(user.id)">Excluir</button>
+                  <a class="btn btn-xs btn-primary" [routerLink]="['/users', user.id, 'edit']">Editar</a>      
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <nav>
+          <ul class="pager">
+            <li class="previous " *ngIf="!page?.first"><a [routerLink]="['/users']" [queryParams]="{size:page?.size, page:page?.number-1}"><span aria-hidden="true">&larr;</span> Older</a></li>
+            <li class="next" *ngIf="!page?.last"><a [routerLink]="['/users']" [queryParams]="{size:page?.size, page:page?.number+1}">Newer <span aria-hidden="true">&rarr;</span></a></li>
+          </ul>
+        </nav>
+      </div>
+     
     </div>
   </div>

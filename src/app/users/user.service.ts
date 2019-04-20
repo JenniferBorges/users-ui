@@ -10,9 +10,9 @@ export class UserService {
 
   constructor(private client: HttpClient ) { }
 
-  list():Observable<Page<User>>{
+  list(size:number = 0, page:number = 0, sort:string='name', dir:string = 'asc'):Observable<Page<User>>{
 
-    return this.client.get<Page<User>>(`${environment.apiUrl}/users`)
+    return this.client.get<Page<User>>(`${environment.apiUrl}/users?sort=${sort},${dir}&size=${size}&page=${page}`)
   }
 
   delete(id:number):Observable<any>{

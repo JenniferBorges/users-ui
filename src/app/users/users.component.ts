@@ -13,16 +13,26 @@ import { ToastrService } from 'ngx-toastr';
 export class UsersComponent implements OnInit {
   page:Page<User>
 
-  constructor(private service: UserService, private toastr: ToastrService) { }
+  constructor(private service: UserService, private toastr: ToastrService, private route:ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit() { 
+    
     this.reload()
   }
 
-  reload(){
-    this.service.list().subscribe(page => {
-      this.page = page
+  change(sort, dir){
+    this.reload(sort, dir)
+  }
+
+  reload(sort:string = 'id', dir: string = 'asc'){
+
+    this.route.queryParams.subscribe(params => {
+      this.service.list(params['size'], params['page'], sort, dir).subscribe(page => {
+        this.page = page
+      })  
     })
+
+
   }
 
   delete(id:number){
