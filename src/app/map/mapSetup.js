@@ -87,9 +87,6 @@ export function setupMap(elementId, summary){
     };
 
     info.update = function (props) {
-        if(props){
-            console.log( ufSummary[props.sigla] || 0)
-        }
         this._div.innerHTML = '<h4>Usuários cadastrados</h4>' +  (props ?
             '<b>' + props.name + '</b><br />' + (ufSummary[props.sigla] || 0) + ' usuários'
             : 'Passe o cursor sobre um estado');
