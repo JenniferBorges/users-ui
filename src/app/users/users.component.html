@@ -26,14 +26,14 @@
               <th>Nascimento</th>
               <th>CPF</th>
               <th>UF</th>
-              <th>Peso</th>
+              <th>Peso</th>        
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let user of page?.content">
               <td>{{user.name}}</td>
-              <td>{{user.birth}}</td>
+              <td>{{user.birth | date: 'dd/MM/yyyy'}}</td>
               <td>{{user.cpf}}</td>
               <td>{{user.uf}}</td>
               <td>{{user.weight}}</td>
