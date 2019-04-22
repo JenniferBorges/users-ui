@@ -12,9 +12,9 @@ import { ToastrService } from 'ngx-toastr';
 
 export class FormComponent implements OnInit {
 
-  private ufs:any[]
+   ufs:any[]
 
-  private user?:User={}
+   user?:User={}
 
   constructor(private service: UserService, private route: ActivatedRoute, 
             private router: Router, private toastr: ToastrService) { }
